@@ -28,6 +28,12 @@
 # Uncomment below for a setup with just postgres and change your Gemfile to reflect this
 default: &default
   adapter: postgresql
+  encoding: unicode
+  username: <%= ENV['POSTGRES_USER'] %>
+  password: <%= ENV['POSTGRES_PASSWORD'] %>
+  host: <%= ENV.fetch('POSTGRES_HOST', 'localhost') %>
+  # https://guides.rubyonrails.org/configuring.html#database-pooling
+  pool: <%= ENV.fetch("RAILS_MAX_THREADS") { 5 } %>
 
 development:
   <<: *default
@@ -43,3 +49,4 @@ test:
 production:
   <<: *default
   database: react-webpack-rails-tutorial
+  url: <%= ENV["DATABASE_URL"] %>
